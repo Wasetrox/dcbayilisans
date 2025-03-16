@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lisans Sistemi</title>
+    <style>
+        :root {
+            --discord-bg: #36393f;
+            --discord-dark: #2f3136;
+            --discord-light: #40444b;
+            --discord-accent: #7289da;
+            --discord-text: #dcddde;
+            --discord-muted: #72767d;
+            --shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--discord-bg);
+            color: var(--discord-text);
+            line-height: 1.6;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .login-container, .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--discord-dark);
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .login-container {
+            display: block;
+            text-align: center;
+        }
+
+        .login-container.hidden, .container.hidden {
+            display: none;
+        }
+
+        .login-container input {
+            padding: 10px;
+            width: 200px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: none;
+            background: var(--discord-light);
+            color: var(--discord-text);
+        }
+
+        .login-container button {
+            padding: 10px 20px;
+            background: var(--discord-accent);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .login-container button:hover {
+            background: #677bc4;
+        }
+
+        h1 {
+            color: var(--discord-text);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 2em;
+            font-weight: 600;
+        }
+
+        .table-container {
+            border-radius: 8px;
+            overflow: hidden;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+        }
+
+        thead {
+            background: var(--discord-light);
+        }
+
+        th {
+            padding: 12px 15px;
+            text-transform: uppercase;
+            font-size: 0.9em;
+            color: var(--discord-muted);
+            font-weight: 600;
+        }
+
+        tbody tr {
+            transition: background 0.2s ease;
+            background: var(--discord-dark);
+        }
+
+        tbody tr:hover {
+            background: var(--discord-light);
+        }
+
+        td {
+            padding: 12px 15px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .license-key {
+            font-family: 'Courier New', Courier, monospace;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 4px 8px;
+            border-radius: 4px;
+            color: var(--discord-accent);
+        }
+
+        .status {
+            padding: 6px 12px;
+            border-radius: 12px;
+            font-size: 0.85em;
+            display: inline-block;
+        }
+
+        .active {
+            background: #43b581;
+            color: white;
+        }
+
+        .inactive {
+            background: #f04747;
+            color: white;
+        }
+
+        .delete-btn {
+            background: #f04747;
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .delete-btn:hover {
+            background: #d83c3c;
+        }
+
+        @media (max-width: 768px) {
+            .container, .login-container {
+                padding: 10px;
+            }
+
+            th, td {
+                padding: 8px;
+                font-size: 0.85em;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--discord-dark);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--discord-accent);
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #677bc4;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container" id="loginContainer">
+        <h1>Giriş Yap</h1>
+        <input type="password" id="passwordInput" placeholder="Şifreyi girin">
+        <br>
+        <button onclick="checkPassword()">Giriş</button>
+    </div>
+
+    <div class="container hidden" id="mainContainer">
+        <h1>Lisanslar</h1>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Ürün</th>
+                        <th>Kullanıcı</th>
+                        <th>Verilen Kişi</th>
+                        <th>Lisans Anahtarı</th>
+                        <th>Oluşturma Tarihi</th>
+                        <th>Son İşlem Tarihi</th>
+                        <th>Durum</th>
+                        <th>İşlem</th>
+                    </tr>
+                </thead>
+                <tbody id="licenseTable"></tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const correctPassword = "Wase#7896321"; // Şifreyi buraya ayarlayın
+
+        function checkPassword() {
+            const input = document.getElementById('passwordInput').value;
+            if (input === correctPassword) {
+                document.getElementById('loginContainer').classList.add('hidden');
+                document.getElementById('mainContainer').classList.remove('hidden');
+                loadLicenses();
+            } else {
+                alert('Yanlış şifre!');
+            }
+        }
+
+        function loadLicenses() {
+            fetch('/licenses')
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.getElementById('licenseTable');
+                    tableBody.innerHTML = '';
+                    data.forEach(license => {
+                        const row = document.createElement('tr');
+                        const statusClass = license.hardwareId ? 'active' : 'inactive';
+                        const statusText = license.hardwareId ? 'Aktif' : 'Aktif Edilmemiş';
+                        
+                        row.innerHTML = `
+                            <td>${license.product}</td>
+                            <td>${license.userTag || 'Bilinmiyor'}</td>
+                            <td>${license.assignedBy || 'Bilinmiyor'}</td>
+                            <td><span class="license-key">${license.licenseKey}</span></td>
+                            <td>${new Date(license.createdAt).toLocaleString('tr-TR')}</td>
+                            <td>${license.lastModified ? new Date(license.lastModified).toLocaleString('tr-TR') : 'Yok'}</td>
+                            <td><span class="status ${statusClass}">${statusText}</span></td>
+                            <td><button class="delete-btn" onclick="deleteLicense('${license.licenseKey}')">Sil</button></td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('Hata:', error);
+                    document.getElementById('licenseTable').innerHTML = 
+                        '<tr><td colspan="8">Veriler yüklenirken hata oluştu</td></tr>';
+                });
+        }
+
+        function deleteLicense(licenseKey) {
+            if (confirm('Bu lisansı silmek istediğinizden emin misiniz?')) {
+                fetch('/delete-license', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ licenseKey })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        loadLicenses();
+                    } else {
+                        alert('Lisans silinirken hata oluştu');
+                    }
+                });
+            }
+        }
+    </script>
+</body>
+</html>

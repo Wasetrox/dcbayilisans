@@ -1,0 +1,10 @@
+{
+  "token": "",
+  "client_id": "",
+  "secret": "",
+  "own": "",
+  "host": "http://localhost",
+  "port": 3000,
+  
+  "invite_link": ""
+}

@@ -1,0 +1,16 @@
+{
+    "name": "discord-bot",
+    "version": "1.0.0",
+    "description": "Discord Gen, VIP ve Ticket sistemi içeren bot.",
+    "main": "wase.js",
+    "scripts": {
+        "start": "node wase.js"
+    },
+    "dependencies": {
+        "@discordjs/voice": "^0.18.0",
+        "axios": "^1.7.9",
+        "discord.js": "^14.18.0",
+        "mongoose": "^8.12.1",
+        "fs": "latest"
+    }
+}

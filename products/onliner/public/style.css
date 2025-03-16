@@ -1,0 +1,277 @@
+/* Genel vücut ayarları */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #2c2f38;  /* Karanlık arka plan */
+  color: #fff;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 100vh;
+  overflow-x: hidden;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease;
+}
+
+/* Header Tasarımı */
+header {
+  background-color: #7289da;  /* Discord Mavi */
+  color: white;
+  width: 100%;
+  padding: 30px 0;
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.3s ease;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+header:hover {
+  background-color: #5d6fa1;  /* Koyu Mavi hover */
+}
+
+/* Ana içerik */
+main {
+  max-width: 1200px;
+  width: 100%;
+  padding: 40px;
+  margin-top: 40px;
+  background-color: #353b48;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+  animation: slideIn 0.8s ease-in-out;
+}
+
+/* Animasyonlar */
+@keyframes slideIn {
+  0% { transform: translateY(30px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* Modern Form Alanları (input ve select) */
+input[type="text"], input[type="password"], textarea, select {
+  background-color: #444b5a;
+  border: 1px solid #555;
+  color: #f1f1f1;
+  font-size: 1rem;
+  padding: 12px;
+  border-radius: 8px;
+  width: 100%;
+  margin: 10px 0;
+  outline: none;
+  box-sizing: border-box;
+  transition: all 0.3s ease;
+}
+
+/* Odaklanıldığında (focus) input ve select stilleri */
+input[type="text"]:focus, input[type="password"]:focus, textarea:focus, select:focus {
+  background-color: #555c6d;
+  border-color: #1abc9c;
+  box-shadow: 0 0 10px rgba(26, 188, 156, 0.8); /* Yeşil ışık efekti */
+}
+
+/* Buttonlar */
+button {
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  background-color: #7289da;
+  color: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  margin: 10px 0;
+  width: 100%;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  text-align: center;
+}
+
+/* Button hover ve aktif durum */
+button:hover {
+  background-color: #5d6fa1;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+button:active {
+  background-color: #4a5d86;
+  transform: scale(0.98);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Işık efekti için gölge */
+button, .panel div, .token-item, input, select {
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+  transition: box-shadow 0.3s ease;
+}
+
+button:hover, .panel div:hover, .token-item:hover, input:focus, select:focus {
+  box-shadow: 0 0 25px rgba(255, 255, 255, 0.3);
+}
+
+/* Panel ve kartlar */
+.panel {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.panel div {
+  background-color: #2f3442;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  flex: 1;
+  min-width: 220px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: zoomIn 0.6s ease-in-out;
+}
+
+.panel div:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
+}
+
+.panel div .panel-title {
+  font-size: 1.5rem;
+  color: #1abc9c;  /* Discord yeşili */
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.panel div .panel-content {
+  font-size: 1rem;
+  color: #7f8c8d;
+}
+
+/* Token Listesi */
+#tokenList {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+/* Tokenlerin Bulunduğu Kutular */
+.token-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #444b5a;
+  border: 2px solid #555; /* Daha belirgin kenarlık */
+  border-radius: 8px;
+  padding: 15px 25px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  animation: fadeInUp 0.6s ease-out;
+  width: auto;  /* Boyutun içeriğe göre otomatik ayarlanması için */
+  min-width: 100%;  /* En az %100 genişlik */
+}
+
+.token-item:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
+}
+
+.token-item .token-text {
+  font-size: 1.1rem;
+  color: #f1f1f1;
+  font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 70%;
+}
+
+.token-item button {
+  padding: 10px 18px;
+  border: none;
+  border-radius: 4px;
+  background-color: #e74c3c;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  outline: none;
+}
+
+.token-item button:hover {
+  background-color: #c0392b;
+}
+
+/* Animasyonlar */
+@keyframes fadeInUp {
+  0% { transform: translateY(20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+/* Modal pencere */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+}
+
+.modal-content {
+  background-color: #353b48;
+  padding: 35px;
+  border-radius: 8px;
+  width: 60%;
+  max-width: 650px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.modal-header,
+.modal-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.modal-header h2 {
+  margin: 0;
+  font-size: 1.8rem;
+  color: #ffffff;
+}
+
+.modal-footer button {
+  background-color: #1abc9c;
+  border: none;
+  color: white;
+  padding: 12px 24px;
+  font-size: 1.1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.modal-footer button:hover {
+  background-color: #16a085;
+}
+
+/* Modal açılınca animasyon */
+.modal.show {
+  display: flex;
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}

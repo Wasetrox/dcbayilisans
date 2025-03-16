@@ -1,0 +1,7 @@
+GELİŞMİŞ DİSCORD TOKEN ONLİNER
+
+1- modül.bat'ı aç,
+2- data klasöründeki token.json u içindeki gibi doldur,
+3- baslat.bat'ı çalıştır.
+
+[Web sitesine grmek için cmd de çıkan localhost a gidin.]

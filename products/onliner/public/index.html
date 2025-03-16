@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SelfBot Yönetim Paneli</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <h1>Discord SelfBot Yönetim Paneli</h1>
+  
+  <div id="controls">
+    <select id="dataType">
+      <option value="tokens">Tokens</option>
+      <option value="voices">Voices</option>
+      <option value="games">Games</option>
+      <option value="listings">Listings</option>
+      <option value="watches">Watches</option>
+      <option value="sozs">Sözler</option>
+    </select>
+    <button id="loadData">Verileri Yükle</button>
+  </div>
+
+  <div id="dataContainer"></div>
+
+  <div id="addItem">
+    <input type="text" id="newItem" placeholder="Yeni öğe ekle">
+    <button id="addButton">Ekle</button>
+  </div>
+
+  <script src="/script.js"></script>
+</body>
+</html>
